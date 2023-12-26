@@ -10,15 +10,21 @@ private:
 	//metadata about file
 	Metadata metadata;
 
-	//returns size of the file on disk
-	int getSize() const; 
+	//returns size of the file 
+	int getSize(const std::string) const;
+
+	//create a file
+	void createFile(const std::string, const std::string);
 
 public:
 	//could retrieve file size
 	static const int FILE_SIZE_ERROR = -1;
 
-	//constructors
+	//construct a new file
 	File(const std::string, const std::string, const std::string);
+
+	//construct a file from an existing file
+	File(const std::string);
 
 	//getters
 	std::string getContents() const;

@@ -1,14 +1,40 @@
 #pragma once
 #include "File.h"
 #include <fstream>
+#include <iostream>
 #include <string>
 
-//constructor
+//construct a new file
 File::File(const std::string fileName, const std::string creationDateTime, const std::string contents)
 {
+	createFile(fileName, contents); 
 	this->contents = contents;
-	this->metadata = Metadata(fileName, creationDateTime, );
+	this->metadata = Metadata(fileName, creationDateTime, getSize(fileName));
 }
+
+//construct an existing file
+File::File(const std::string fileName)
+{
+	std::ifstream file;
+	file.open(fileName);
+	if (!file.is_open())
+	{
+		std::cout << "File does not exist." << std::endl;
+		return;
+	}
+
+	std::string contents = "";
+	std::string line;
+	while (std::getline(file, line))
+	{
+		contents += line;
+	}
+	file.close();
+	this->contents = contents;
+	this->metadata = Metadata(fileName, "", getSize(fileName));
+}
+
+
 
 //getters
 std::string File::getContents() const
@@ -32,12 +58,23 @@ void File::setMetadata(const Metadata metadata)
 	this->metadata = metadata;
 }
 
-//returns size of the file on disk
-int File::getSize() const
+//create a file
+void File::createFile(const std::string fileName, const std::string contents)
+{
+	//create file
+	std::ofstream file;
+	file.open(fileName);
+	file << contents;
+	file.close();
+}
+
+//returns size of the file
+int File::getSize(const std::string fileName) const
 {
 	//open file
 	std::ifstream file;
-	file.open(metadata.getFileName());
+	file.open(fileName); 
+	
 	if (!file.is_open())
 		return FILE_SIZE_ERROR;
 	
