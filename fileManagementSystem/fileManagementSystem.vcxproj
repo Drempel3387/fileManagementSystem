@@ -127,18 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Directory.cpp" />
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Metadata.cpp" />
     <ClCompile Include="Path.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Directory.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Metadata.h" />
     <ClInclude Include="Path.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="file.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

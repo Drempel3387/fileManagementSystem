@@ -9,7 +9,7 @@ File::File(const std::string fileName, const std::string creationDateTime, const
 {
 	createFile(fileName, contents); 
 	this->contents = contents;
-	this->metadata = Metadata(fileName, creationDateTime, getSize(fileName));
+	this->metadata = Metadata(Path(fileName), creationDateTime, getSize(fileName));
 }
 
 //construct an existing file
@@ -89,7 +89,7 @@ int File::getSize(const std::string fileName) const
 //print to console
 std::ostream& operator<<(std::ostream& os, const File& file)
 {
-	os << "File Name: " << file.metadata.getFileName() << std::endl;
+	os << "File Name: " << file.metadata.getPath().getPath() << std::endl;  
 	os << "Creation Date: " << file.metadata.getCreationDate() << std::endl;
 	os << "File Size: " << file.metadata.getFileSize() << std::endl;
 	os << "Contents: " << file.contents << std::endl;

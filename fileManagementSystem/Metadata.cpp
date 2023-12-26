@@ -1,9 +1,9 @@
 #include "Metadata.h"
 
 //parameterized constructor
-Metadata::Metadata(const std::string fileName, const std::string creationDateTime, const int fileSize)
+Metadata::Metadata(const Path path, const std::string creationDateTime, const int fileSize)
 {
-	this->fileName = fileName;
+	this->filePath = path;
 	this->creationDateTime = creationDateTime;
 	this->fileSize = fileSize; 
 }
@@ -11,14 +11,14 @@ Metadata::Metadata(const std::string fileName, const std::string creationDateTim
 //default constructor
 Metadata::Metadata()
 {
-	this->fileName = "";
+	this->filePath = Path();	
 	this->creationDateTime = "";
 	this->fileSize = 0;
 }
 
-std::string Metadata::getFileName() const
+Path Metadata::getPath() const 
 {
-	return fileName;
+	return filePath; 
 }
 
 std::string Metadata::getCreationDate() const
@@ -31,9 +31,9 @@ int Metadata::getFileSize() const
 	return fileSize;
 }
 
-void Metadata::setFileName(const std::string)
+void Metadata::setPath(const Path path)  
 {
-	this->fileName = fileName;
+	this->filePath = path;  
 }
 
 void Metadata::setFileSize(const int)
