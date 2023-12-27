@@ -19,10 +19,11 @@ class Directory
 		std::string path;//path of the directory
 		std::vector<File> files;//vector of all files in the directory
 		std::vector<Directory> directories;//vector of all directories in the directory
+		Directory* parent;//pointer to the parent directory of the directory
 	public:
 
 		//constructors and destructor
-		Directory(const std::string, const std::string);
+		Directory(const std::string, const std::string, Directory*);
 		Directory();
 		~Directory();
 
@@ -31,12 +32,14 @@ class Directory
 		std::string getName() const;
 		std::vector<File> getFiles() const;
 		std::vector<Directory> getDirectories() const;
+		Directory* getParent() const; 
 
 		//setters
 		void setFiles(const std::vector<File>);
 		void setName(const std::string);
 		void setPath(const std::string);
 		void setDirectories(const std::vector<Directory>);
+		void setParent(Directory*); 
 		
 		//add methods + remove methods
 		bool addFile(const File&); //adds a file to the directory
@@ -46,10 +49,13 @@ class Directory
 
 		//search methods
 		File* searchFile(const std::string); //searches for a file in the directory by name
-		Directory* searchDirectory(const std::string); //searches for a directory in the directory
+		Directory* searchDirectory(const std::string); //searches for a directory in the directory by name
+
+		//print methods
+		void printFiles() const; //prints all files in the directory
+		void printDirectories() const; //prints all directories in the directory
 
 		//overloads
 		bool operator==(const Directory&) const;
-
 };
 

@@ -5,10 +5,10 @@
 #include <vector>
 
 //parameterized constructor
-Directory::Directory(const std::string name, const std::string path) : name(name), path(path) {}
+Directory::Directory(const std::string name, const std::string path, Directory* parent) : name(name), path(path), parent(parent) {}
 
-//default constructor
-Directory::Directory() : name(""), path("") {}
+//default constructor 
+Directory::Directory() : name(""), path(""), parent(nullptr) {} 
 
 //destructor
 Directory::~Directory() {}
@@ -34,6 +34,11 @@ std::string Directory::getPath() const
 	return this->path;
 }
 
+Directory* Directory::getParent() const
+{
+	return parent; 
+}
+
 //setters
 void Directory::setFiles(const std::vector<File> files) 
 {
@@ -53,6 +58,11 @@ void Directory::setDirectories(const std::vector<Directory> directories)
 void Directory::setPath(const std::string path)
 {
 	this->path = path;
+}
+
+void Directory::setParent(Directory* parent)
+{
+	this->parent = parent; 
 }
 
 //add file to the directory
@@ -121,6 +131,20 @@ Directory* Directory::searchDirectory(const std::string name)
 			return &directory;
 
 	return nullptr; //directory not found
+}
+
+//print all files in the directory
+void Directory::printFiles() const
+{
+	for (File file : files)
+		std::cout << file.getMetadata().getName() << std::endl;  
+}
+
+//print all directories in the directory
+void Directory::printDirectories() const
+{
+	for (Directory directory : directories)
+		std::cout << directory.getName() << std::endl; 
 }
 
 //overload == operator
