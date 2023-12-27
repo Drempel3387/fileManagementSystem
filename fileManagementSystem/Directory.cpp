@@ -29,7 +29,7 @@ std::vector<Directory> Directory::getDirectories() const
 	return this->directories;
 }
 
-std::string Directory::getPath() const
+Path Directory::getPath() const
 {
 	return this->path;
 }
@@ -55,7 +55,7 @@ void Directory::setDirectories(const std::vector<Directory> directories)
 	this->directories = directories;
 }
 
-void Directory::setPath(const std::string path)
+void Directory::setPath(const Path path)
 {
 	this->path = path;
 }

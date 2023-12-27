@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <vector>
+#include "Path.h"
 #include "File.h"
 //this class will represent a directory in the file system
 //it will contain a vector of files and a vector of directories
@@ -16,7 +17,7 @@ class Directory
 {
 	private:
 		std::string name;//name of the directory
-		std::string path;//path of the directory
+		Path path;//path of the directory
 		std::vector<File> files;//vector of all files in the directory
 		std::vector<Directory> directories;//vector of all directories in the directory
 		Directory* parent;//pointer to the parent directory of the directory
@@ -28,7 +29,7 @@ class Directory
 		~Directory();
 
 		//getters
-		std::string getPath() const;
+		Path getPath() const; 
 		std::string getName() const;
 		std::vector<File> getFiles() const;
 		std::vector<Directory> getDirectories() const;
@@ -37,7 +38,7 @@ class Directory
 		//setters
 		void setFiles(const std::vector<File>);
 		void setName(const std::string);
-		void setPath(const std::string);
+		void setPath(const Path); 
 		void setDirectories(const std::vector<Directory>);
 		void setParent(Directory*); 
 		
