@@ -1,27 +1,28 @@
 #pragma once
 #include <string>
+#include "Path.h"
 class Metadata
 {
 private:
 	std::string name;
-	std::string filePath;
+	Path path; 
 	std::string creationDateTime; //YYYY-MM-DD HH:MM:SS
 	int fileSize;
 
 public:
 	//constructors
-	Metadata(const std::string, const std::string, const std::string, const int);
+	Metadata(const std::string&, const std::string&, const Path& path, const int);
 	Metadata();
 
 
 	//getters
-	std::string getPath() const;  
+	Path getPath() const;   
 	std::string getCreationDate() const;
 	std::string getName() const; 
 	int getFileSize() const;
 
 	//setters
-	void setPath(const std::string); 
+	void setPath(const Path&);   
 	void setName(const std::string);
 	void setFileSize(const int);
 
