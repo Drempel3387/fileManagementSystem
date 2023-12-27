@@ -5,21 +5,13 @@
 #include <vector>
 
 //parameterized constructor
-Directory::Directory(const std::string name)
-{
-	this->name = name;
-}
+Directory::Directory(const std::string name, const std::string path) : name(name), path(path) {}
 
 //default constructor
-Directory::Directory()
-{
-	this->name = "";
-}
+Directory::Directory() : name(""), path("") {}
 
 //destructor
-Directory::~Directory()
-{
-}
+Directory::~Directory() {}
 
 //getters
 std::string Directory::getName() const
@@ -43,7 +35,7 @@ std::string Directory::getPath() const
 }
 
 //setters
-void Directory::setFiles(const std::vector<File> files)
+void Directory::setFiles(const std::vector<File> files) 
 {
 	this->files = files;
 }
@@ -64,10 +56,11 @@ void Directory::setPath(const std::string path)
 }
 
 //add file to the directory
-bool Directory::addFile(const File newFile)
+bool Directory::addFile(const File& newFile)
 {
 	//do not allow duplicate files
-	if (std::find(files.begin(), files.end(), newFile) != files.end())
+	//meaning files with the same name in the same directory
+	if (searchFile(newFile.getMetadata().getName()))
 		return false;
 
 	this->files.push_back(newFile);
@@ -75,40 +68,37 @@ bool Directory::addFile(const File newFile)
 }
 
 //add directory to the directory
-bool Directory::addDirectory(const Directory newDirectory)
+bool Directory::addDirectory(const Directory& newDirectory)
 {
 	//do not allow duplicate directories 
-	if (std::find(directories.begin(), directories.end(), newDirectory) != directories.end()) 
+	//meaning directories with the same name in the same directory
+	if (searchDirectory(newDirectory.getName()))  
 		return false;
 
 	this->directories.push_back(newDirectory);
 	return true;
 }
 
-//remove file from the directory
-bool Directory::removeFile(const File file)
+//remove file from the directory if it exists
+//returns true if file was removed, false if file was not removed
+bool Directory::removeFile(const File& file) 
 {
-	for (int i = 0; i < files.size(); i++)
-	{
-		if (files[i].getMetadata().getPath() == path)
-		{
-			files.erase(files.begin() + i);
-			return true;
-		}
+	auto it = std::find(files.begin(), files.end(), file);
+	if (it != files.end()) {
+		files.erase(it);
+		return true;
 	}
 	return false;
 }
 
-//remove directory from the directory
-bool Directory::removeDirectory(const Directory directory)
+//remove directory from the directory if it exists
+//returns true if directory was removed, false if directory was not removed
+bool Directory::removeDirectory(const Directory& directory)
 {
-	for (int i = 0; i < directories.size(); i++)
-	{
-		if (directories[i].getPath() == path)
-		{
-			directories.erase(directories.begin() + i);
-			return true;
-		}
+	auto it = std::find(directories.begin(), directories.end(), directory);
+	if (it != directories.end()) {
+		directories.erase(it);
+		return true;
 	}
 	return false;
 }
@@ -123,8 +113,21 @@ File* Directory::searchFile(const std::string name)
 	return nullptr; //file not found
 }
 
+//search for a directory in the directory
+Directory* Directory::searchDirectory(const std::string name)
+{
+	for (Directory& directory : directories)
+		if (directory.getName() == name)//directory with matching name in same directory found
+			return &directory;
 
+	return nullptr; //directory not found
+}
 
+//overload == operator
+bool Directory::operator==(const Directory& other) const
+{
+	return (this->name == other.name);
+}
 
 
 

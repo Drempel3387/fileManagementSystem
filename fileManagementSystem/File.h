@@ -39,4 +39,7 @@ public:
 
 	//print to console
 	friend std::ostream& operator<<(std::ostream& os, const File& file);
+
+	//overloads
+	bool operator==(const File& other) const;
 };

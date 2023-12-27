@@ -5,7 +5,7 @@
 #include <string>
 
 //construct a new file
-File::File(const std::string fileName, const std::string creationDateTime, const std::string contents, const std::string path) :  metadata(path, creationDateTime, fileName, getSize(fileName)) 
+File::File(const std::string fileName, const std::string creationDateTime, const std::string contents, const std::string path) :  metadata(fileName, creationDateTime, path, getSize(fileName)) 
 {
 	createFile(fileName, contents); 
 	this->contents = contents;
@@ -18,7 +18,8 @@ File::File(const std::string fileName, const std::string path)
 	file.open(fileName);
 	if (!file.is_open())
 	{
-		std::cout << "File does not exist." << std::endl;
+		std::cout << "ERROR: File does not exist." << std::endl;
+		delete this;
 		return;
 	}
 
@@ -34,11 +35,7 @@ File::File(const std::string fileName, const std::string path)
 }
 
 //default constructor
-File::File()
-{
-	this->contents = "";
-	this->metadata = Metadata();
-}
+File::File(): contents(""), metadata() {}
 
 //getters
 std::string File::getContents() const
@@ -93,10 +90,16 @@ int File::getSize(const std::string fileName) const
 //print to console
 std::ostream& operator<<(std::ostream& os, const File& file)
 {
-	os << "File Name: " << file.metadata.getPath() << std::endl;  
+	os << "File Name: " << file.metadata.getName() << std::endl;  
 	os << "Creation Date: " << file.metadata.getCreationDate() << std::endl;
 	os << "File Size: " << file.metadata.getFileSize() << std::endl;
 	os << "Contents: " << file.contents << std::endl;
 	return os;
+}
+
+//overloads
+bool File::operator==(const File& other) const
+{
+	return (this->metadata.getName() == other.metadata.getName()); 
 }
 
