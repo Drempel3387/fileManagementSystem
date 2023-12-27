@@ -11,20 +11,23 @@ private:
 	Metadata metadata;
 
 	//returns size of the file 
-	int getSize(const std::string) const;
+	int getSize();
 
 	//create a file
-	void createFile(const std::string, const std::string);
+	void createFile();
+
+	//file location descriptor
+	std::string fileDescriptor();
 
 public:
 	//could not retrieve file size
 	static const int FILE_SIZE_ERROR = -1;
 
 	//construct a new file
-	File(const std::string, const std::string, const std::string, const std::string); 
+	File(const std::string, const std::string, const std::string, const Path);  
 
 	//construct a file from an existing file
-	File(const std::string, const std::string); 
+	File(const File&); 
 
 	//default constructor
 	File();

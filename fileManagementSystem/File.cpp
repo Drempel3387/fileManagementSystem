@@ -5,33 +5,17 @@
 #include <string>
 
 //construct a new file
-File::File(const std::string fileName, const std::string creationDateTime, const std::string contents, const std::string path) :  metadata(fileName, creationDateTime, path, getSize(fileName)) 
+File::File(const std::string fileName, const std::string creationDateTime, const std::string contents, const Path path) :  metadata(fileName, creationDateTime, path, getSize()) 
 {
-	createFile(fileName, contents); 
 	this->contents = contents;
+	createFile(); 
 }
 
 //construct from an existing file
-File::File(const std::string fileName, const std::string path)
+File::File(const File& file)
 {
-	std::ifstream file;
-	file.open(fileName);
-	if (!file.is_open())
-	{
-		std::cout << "ERROR: File does not exist." << std::endl;
-		delete this;
-		return;
-	}
-
-	std::string contents = "";
-	std::string line;
-	while (std::getline(file, line))
-	{
-		contents += line;
-	}
-	file.close();
-	this->contents = contents;
-	this->metadata = Metadata(path, "", fileName, getSize(fileName));
+	this->contents = file.contents;
+	this->metadata = file.getMetadata(); 
 }
 
 //default constructor
@@ -60,21 +44,22 @@ void File::setMetadata(const Metadata metadata)
 }
 
 //create a file
-void File::createFile(const std::string fileName, const std::string contents)
+void File::createFile()
 {
 	//create file
 	std::ofstream file;
-	file.open(fileName);
-	file << contents;
+	file.open(fileDescriptor());  
+	file << contents; 
+
 	file.close();
 }
 
 //returns size of the file
-int File::getSize(const std::string fileName) const
+int File::getSize()
 {
 	//open file
 	std::ifstream file;
-	file.open(fileName); 
+	file.open(fileDescriptor());  
 	
 	if (!file.is_open())
 		return FILE_SIZE_ERROR;
@@ -85,6 +70,12 @@ int File::getSize(const std::string fileName) const
 	file.close();	
 
 	return size;
+}
+
+//file location descriptor
+std::string File::fileDescriptor()
+{
+	return (metadata.getPath().getPath() + metadata.getName());
 }
 
 //print to console
