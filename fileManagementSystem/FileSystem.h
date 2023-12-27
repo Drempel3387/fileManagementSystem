@@ -4,36 +4,31 @@
 #include "Directory.h"
 
 //this class will represent the file system
-//it will contain a root directory	
-//it will provide methods to add and remove files and directories
-//it will provide methods to search for files and directories
-//it will provide methods to move between directories
+//it will contain a root directory and the current directory
+//it will contain methods to move around the file system
+//
 
 class FileSystem
 {
 	private:
+		//variables
 		Directory root;
 		Directory currentDirectory;
+
+		//constants
 		const std::string rootName = "Root";
+		const std::string path = "Root";
+		const std::string EMPTY = "";
+
 	public:
 		//constructor and destructor
 		FileSystem();
 		~FileSystem();
 
-		//search methods
-		Directory searchDirectory(std::string directoryName); //searches the current directory for a directory
-		File searchFile(std::string fileName); //searches the current directory	for a file
-
-		//add methods
-		void addDirectory(std::string name, Directory location); //adds a directory to the current directory
-		void addFile(File file, Directory location); //adds a file to the current directory
-
-		//remove methods
-		void removeDirectory(std::string name); //removes a directory from the current directory
-		void removeFile(std::string name); //removes a file from the current directory 
-
 		//move methods
-		void changeDirectory(std::string name); //change to a directory in the current directory
+		bool moveTo(const std::string path); //move to a specific path
+		void moveBack(); //move back to the parent directory
+		void moveInto(const std::string name); //move into a child directory 
 
 		//getters
 		Directory getRoot();
