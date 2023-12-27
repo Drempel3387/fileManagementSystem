@@ -17,14 +17,17 @@ private:
 	void createFile(const std::string, const std::string);
 
 public:
-	//could retrieve file size
+	//could not retrieve file size
 	static const int FILE_SIZE_ERROR = -1;
 
 	//construct a new file
-	File(const std::string, const std::string, const std::string);
+	File(const std::string, const std::string, const std::string, const std::string); 
 
 	//construct a file from an existing file
-	File(const std::string);
+	File(const std::string, const std::string); 
+
+	//default constructor
+	File();
 
 	//getters
 	std::string getContents() const;
