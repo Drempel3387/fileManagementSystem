@@ -91,6 +91,6 @@ std::ostream& operator<<(std::ostream& os, const File& file)
 //overloads
 bool File::operator==(const File& other) const
 {
-	return (this->metadata.getName() == other.metadata.getName()); 
+	return (this->metadata.getPath() == other.metadata.getPath());   
 }
 

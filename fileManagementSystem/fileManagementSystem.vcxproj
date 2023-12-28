@@ -129,6 +129,7 @@
   <ItemGroup>
     <ClCompile Include="Directory.cpp" />
     <ClCompile Include="File.cpp" />
+    <ClCompile Include="FileMap.cpp" />
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Metadata.cpp" />
@@ -137,6 +138,7 @@
   <ItemGroup>
     <ClInclude Include="Directory.h" />
     <ClInclude Include="File.h" />
+    <ClInclude Include="FileMap.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Metadata.h" />
     <ClInclude Include="Path.h" />
