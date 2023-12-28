@@ -5,10 +5,17 @@
 #include <vector>
 
 //parameterized constructor
-Directory::Directory(const std::string name, const std::string path, Directory* parent) : name(name), path(path), parent(parent) {}
+Directory::Directory(const std::string& name, const Path& path, Directory* parent) : name(name), path(path), parent(parent) 
+{
+	directories = std::vector<Directory*>();  
+	files = std::vector<File>(); 
+}
 
 //default constructor 
 Directory::Directory() : name(""), path(""), parent(nullptr) {} 
+
+//used for comparing directories
+Directory::Directory(const std::string& name) : name(name), path(""), parent(nullptr) {}
 
 //destructor
 Directory::~Directory() {}
@@ -24,7 +31,7 @@ std::vector<File> Directory::getFiles() const
 	return this->files;
 }
 
-std::vector<Directory> Directory::getDirectories() const
+std::vector<Directory*> Directory::getDirectories() const
 {
 	return this->directories;
 }
@@ -40,22 +47,22 @@ Directory* Directory::getParent() const
 }
 
 //setters
-void Directory::setFiles(const std::vector<File> files) 
+void Directory::setFiles(const std::vector<File>& files) 
 {
 	this->files = files;
 }
 
-void Directory::setName(const std::string name)
+void Directory::setName(const std::string& name)
 {
 	this->name = name;
 }
 
-void Directory::setDirectories(const std::vector<Directory> directories)
+void Directory::setDirectories(const std::vector<Directory*>& directories)
 {
-	this->directories = directories;
+	this->directories = directories; 
 }
 
-void Directory::setPath(const Path path)
+void Directory::setPath(const Path& path)
 {
 	this->path = path;
 }
@@ -78,15 +85,15 @@ bool Directory::addFile(const File& newFile)
 }
 
 //add directory to the directory
-bool Directory::addDirectory(const Directory& newDirectory)
+bool Directory::addDirectory(Directory* newDirectory)
 {
 	//do not allow duplicate directories 
 	//meaning directories with the same name in the same directory
-	if (searchDirectory(newDirectory.getName()))  
+	if (searchDirectory((*newDirectory).getName()))   
 		return false;
 
-	this->directories.push_back(newDirectory);
-	return true;
+	this->directories.push_back(newDirectory);    
+	return true; 
 }
 
 //remove file from the directory if it exists
@@ -103,9 +110,9 @@ bool Directory::removeFile(const File& file)
 
 //remove directory from the directory if it exists
 //returns true if directory was removed, false if directory was not removed
-bool Directory::removeDirectory(const Directory& directory)
+bool Directory::removeDirectory(const Directory& directory) 
 {
-	auto it = std::find(directories.begin(), directories.end(), directory);
+	auto it = std::find(directories.begin(), directories.end(), &directory);
 	if (it != directories.end()) {
 		directories.erase(it);
 		return true;
@@ -114,7 +121,7 @@ bool Directory::removeDirectory(const Directory& directory)
 }
 
 //search for a file in the directory
-File* Directory::searchFile(const std::string name)
+File* Directory::searchFile(const std::string& name)
 {
 	for (File& file: files)
 		if(file.getMetadata().getName() == name)//file with matching name in same directory found
@@ -124,11 +131,11 @@ File* Directory::searchFile(const std::string name)
 }
 
 //search for a directory in the directory
-Directory* Directory::searchDirectory(const std::string name)
+Directory* Directory::searchDirectory(const std::string& name)
 {
-	for (Directory& directory : directories)
-		if (directory.getName() == name)//directory with matching name in same directory found
-			return &directory;
+	for (Directory* directory : directories)
+		if ((*directory).getName() == name)//directory with matching name in same directory found
+			return directory;  
 
 	return nullptr; //directory not found
 }
@@ -143,8 +150,8 @@ void Directory::printFiles() const
 //print all directories in the directory
 void Directory::printDirectories() const
 {
-	for (Directory directory : directories)
-		std::cout << directory.getName() << std::endl; 
+	for (Directory* directory : directories)
+		std::cout << (*directory).getName() << std::endl;   
 }
 
 //overload == operator

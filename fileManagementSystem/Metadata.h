@@ -6,14 +6,13 @@ class Metadata
 private:
 	std::string name;
 	Path path; 
-	std::string creationDateTime; //YYYY-MM-DD HH:MM:SS
+	std::string creationDateTime; //YYYY-MM-DD HH:MM:SS TODO: import time library
 	int fileSize;
 
 public:
 	//constructors
-	Metadata(const std::string&, const std::string&, const Path& path, const int);
+	Metadata(const std::string&, const std::string&, const Path& path, const int&);
 	Metadata();
-
 
 	//getters
 	Path getPath() const;   
@@ -23,8 +22,8 @@ public:
 
 	//setters
 	void setPath(const Path&);   
-	void setName(const std::string);
-	void setFileSize(const int);
+	void setName(const std::string&);
+	void setFileSize(const int&);
 
 };
 

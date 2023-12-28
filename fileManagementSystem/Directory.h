@@ -19,12 +19,13 @@ class Directory
 		std::string name;//name of the directory
 		Path path;//path of the directory
 		std::vector<File> files;//vector of all files in the directory
-		std::vector<Directory> directories;//vector of all directories in the directory
+		std::vector<Directory*> directories;//vector of all directories in the directory
 		Directory* parent;//pointer to the parent directory of the directory
 	public:
 
 		//constructors and destructor
-		Directory(const std::string, const std::string, Directory*);
+		Directory(const std::string&, const Path&, Directory*);
+		Directory(const std::string&);
 		Directory();
 		~Directory();
 
@@ -32,31 +33,31 @@ class Directory
 		Path getPath() const; 
 		std::string getName() const;
 		std::vector<File> getFiles() const;
-		std::vector<Directory> getDirectories() const;
+		std::vector<Directory*> getDirectories() const;
 		Directory* getParent() const; 
 
 		//setters
-		void setFiles(const std::vector<File>);
-		void setName(const std::string);
-		void setPath(const Path); 
-		void setDirectories(const std::vector<Directory>);
+		void setFiles(const std::vector<File>&);
+		void setName(const std::string&);
+		void setPath(const Path&);  
+		void setDirectories(const std::vector<Directory*>&);
 		void setParent(Directory*); 
 		
 		//add methods + remove methods
 		bool addFile(const File&); //adds a file to the directory
-		bool addDirectory(const Directory&); //adds a directory to the directory
+		bool addDirectory(Directory*); //adds a directory to the directory 
 		bool removeFile(const File&); //removes a file from the directory
-		bool removeDirectory(const Directory&); //removes a directory from the directory
+		bool removeDirectory(const Directory&); //removes a directory from the directory 
 
 		//search methods
-		File* searchFile(const std::string); //searches for a file in the directory by name
-		Directory* searchDirectory(const std::string); //searches for a directory in the directory by name
+		File* searchFile(const std::string&); //searches for a file in the directory by name
+		Directory* searchDirectory(const std::string&); //searches for a directory in the directory by name
 
 		//print methods
 		void printFiles() const; //prints all files in the directory
 		void printDirectories() const; //prints all directories in the directory
 
 		//overloads
-		bool operator==(const Directory&) const;
+		bool operator==(const Directory&) const; //checks if two directories are equal
 };
 

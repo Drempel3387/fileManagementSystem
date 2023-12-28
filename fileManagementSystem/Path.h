@@ -1,29 +1,29 @@
 #pragma once
 #include <string>
+#include <vector>
 
 class Path
 {
 private:
+	//data members
 	std::string path;
+	std::vector <std::string> pathParts; //will contain the parts of the path
 
+	//private methods
+	void setPathParts(); 
 public:
 	//constructors
-	Path(const std::string);
+	Path(const std::string&);
 	Path();
-	Path(const Path&); //copy constructor
 
 	//getters
 	std::string getPath() const;
+	std::vector <std::string> getPathParts() const;
 
 	//setters
-	void setPath(const std::string);
+	void setPath(const std::string&);
 
 	//overloads
 	bool operator==(const Path& other) const;
-	
-	
-	//will remove common portions of two paths
-	//for example, if path1 is /home/user1 and path2 is /home/user1/test, the result will be /test
-	Path& operator-(const Path& other);
 };
 
