@@ -5,10 +5,10 @@
 #include <vector>
 
 //parameterized constructor
-Directory::Directory(const std::string& name, const Path& path, Directory* parent) : name(name), path(path), parent(parent) 
+Directory::Directory(const std::string& name, const Path& path, std::shared_ptr<Directory> parent): name(name), path(path), parent(parent) 
 {
-	directories = std::vector<Directory*>();  
-	files = std::vector<File>(); 
+	directories = std::vector<std::shared_ptr<Directory>>();   
+	files = std::vector<std::shared_ptr<File>>(); 
 }
 
 //default constructor 
@@ -26,12 +26,12 @@ std::string Directory::getName() const
 	return this->name;
 }
 
-std::vector<File> Directory::getFiles() const
+std::vector<std::shared_ptr<File>> Directory::getFiles() const
 {
 	return this->files;
 }
 
-std::vector<Directory*> Directory::getDirectories() const
+std::vector<std::shared_ptr<Directory>> Directory::getDirectories() const 
 {
 	return this->directories;
 }
@@ -41,25 +41,15 @@ Path Directory::getPath() const
 	return this->path;
 }
 
-Directory* Directory::getParent() const
+std::shared_ptr<Directory> Directory::getParent() const
 {
 	return parent; 
-}
+} 
 
 //setters
-void Directory::setFiles(const std::vector<File>& files) 
-{
-	this->files = files;
-}
-
 void Directory::setName(const std::string& name)
 {
 	this->name = name;
-}
-
-void Directory::setDirectories(const std::vector<Directory*>& directories)
-{
-	this->directories = directories; 
 }
 
 void Directory::setPath(const Path& path)
@@ -67,17 +57,12 @@ void Directory::setPath(const Path& path)
 	this->path = path;
 }
 
-void Directory::setParent(Directory* parent)
-{
-	this->parent = parent; 
-}
-
 //add file to the directory
-bool Directory::addFile(const File& newFile)
+bool Directory::addFile(const std::shared_ptr<File> newFile) 
 {
 	//do not allow duplicate files
 	//meaning files with the same name in the same directory
-	if (searchFile(newFile.getMetadata().getName()))
+	if (searchFile(newFile->getName())) 
 		return false;
 
 	this->files.push_back(newFile);
@@ -85,7 +70,7 @@ bool Directory::addFile(const File& newFile)
 }
 
 //add directory to the directory
-bool Directory::addDirectory(Directory* newDirectory)
+bool Directory::addDirectory(const std::shared_ptr<Directory> newDirectory) 
 {
 	//do not allow duplicate directories 
 	//meaning directories with the same name in the same directory
@@ -98,7 +83,7 @@ bool Directory::addDirectory(Directory* newDirectory)
 
 //remove file from the directory if it exists
 //returns true if file was removed, false if file was not removed
-bool Directory::removeFile(const File& file) 
+bool Directory::removeFile(const std::shared_ptr<File> file) 
 {
 	auto it = std::find(files.begin(), files.end(), file);
 	if (it != files.end()) {
@@ -110,9 +95,9 @@ bool Directory::removeFile(const File& file)
 
 //remove directory from the directory if it exists
 //returns true if directory was removed, false if directory was not removed
-bool Directory::removeDirectory(const Directory& directory) 
+bool Directory::removeDirectory(const std::shared_ptr<Directory> directory)
 {
-	auto it = std::find(directories.begin(), directories.end(), &directory);
+	auto it = std::find(directories.begin(), directories.end(), directory);
 	if (it != directories.end()) {
 		directories.erase(it);
 		return true;
@@ -121,20 +106,20 @@ bool Directory::removeDirectory(const Directory& directory)
 }
 
 //search for a file in the directory
-File* Directory::searchFile(const std::string& name)
+std::shared_ptr<File> Directory::searchFile(const std::string& name)
 {
-	for (File& file: files)
-		if(file.getMetadata().getName() == name)//file with matching name in same directory found
-			return &file;
+	for (std::shared_ptr<File> file: files) 
+		if(file->getName() == name)//file with matching name in same directory found 
+			return file; 
 
 	return nullptr; //file not found
 }
 
 //search for a directory in the directory
-Directory* Directory::searchDirectory(const std::string& name)
+std::shared_ptr<Directory> Directory::searchDirectory(const std::string& name) 
 {
-	for (Directory* directory : directories)
-		if ((*directory).getName() == name)//directory with matching name in same directory found
+	for (std::shared_ptr<Directory> directory : directories) 
+		if (directory->getName() == name)//directory with matching name in same directory found
 			return directory;  
 
 	return nullptr; //directory not found
@@ -143,15 +128,15 @@ Directory* Directory::searchDirectory(const std::string& name)
 //print all files in the directory
 void Directory::printFiles() const
 {
-	for (File file : files)
-		std::cout << file.getMetadata().getName() << std::endl;  
+	for (std::shared_ptr<File> file : files)
+		std::cout << file->getName() << std::endl;    
 }
 
 //print all directories in the directory
 void Directory::printDirectories() const
 {
-	for (Directory* directory : directories)
-		std::cout << (*directory).getName() << std::endl;   
+	for (std::shared_ptr<Directory> directory : directories)
+		std::cout << directory->getName() << std::endl;    
 }
 
 //overload == operator

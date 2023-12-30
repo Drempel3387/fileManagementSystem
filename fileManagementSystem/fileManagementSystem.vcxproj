@@ -133,6 +133,9 @@
     <ClCompile Include="FileSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Metadata.cpp" />
+    <ClCompile Include="MetadataRetriever.cpp" />
+    <ClCompile Include="MetadataRetrieverUnix.cpp" />
+    <ClCompile Include="MetadataRetrieverWindows.cpp" />
     <ClCompile Include="Path.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -141,7 +144,13 @@
     <ClInclude Include="FileMap.h" />
     <ClInclude Include="FileSystem.h" />
     <ClInclude Include="Metadata.h" />
+    <ClInclude Include="MetadataRetriever.h" />
+    <ClInclude Include="MetadataRetrieverUnix.h" />
+    <ClInclude Include="MetadataRetrieverWindows.h" />
     <ClInclude Include="Path.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

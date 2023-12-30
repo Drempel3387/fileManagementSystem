@@ -25,15 +25,18 @@
     <Filter Include="Header Files\FileSystem\File">
       <UniqueIdentifier>{50687237-5656-4b73-aa51-c25c89f5a652}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FileSystem\File\Metadata">
+      <UniqueIdentifier>{eba94550-f738-4ba9-adbc-0347b59736f2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileSystem\File\Metadata">
+      <UniqueIdentifier>{231a8545-c54a-4883-bca0-d78dc30762da}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="File.cpp">
-      <Filter>Source Files\FileSystem\File</Filter>
-    </ClCompile>
-    <ClCompile Include="Metadata.cpp">
       <Filter>Source Files\FileSystem\File</Filter>
     </ClCompile>
     <ClCompile Include="Directory.cpp">
@@ -48,12 +51,21 @@
     <ClCompile Include="FileMap.cpp">
       <Filter>Source Files\FileSystem</Filter>
     </ClCompile>
+    <ClCompile Include="MetadataRetriever.cpp">
+      <Filter>Source Files\FileSystem\File\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="Metadata.cpp">
+      <Filter>Source Files\FileSystem\File\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="MetadataRetrieverWindows.cpp">
+      <Filter>Source Files\FileSystem\File\Metadata</Filter>
+    </ClCompile>
+    <ClCompile Include="MetadataRetrieverUnix.cpp">
+      <Filter>Source Files\FileSystem\File\Metadata</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File.h">
-      <Filter>Header Files\FileSystem\File</Filter>
-    </ClInclude>
-    <ClInclude Include="Metadata.h">
       <Filter>Header Files\FileSystem\File</Filter>
     </ClInclude>
     <ClInclude Include="Directory.h">
@@ -68,5 +80,22 @@
     <ClInclude Include="FileMap.h">
       <Filter>Header Files\FileSystem</Filter>
     </ClInclude>
+    <ClInclude Include="MetadataRetriever.h">
+      <Filter>Header Files\FileSystem\File\Metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="Metadata.h">
+      <Filter>Header Files\FileSystem\File\Metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="MetadataRetrieverWindows.h">
+      <Filter>Header Files\FileSystem\File\Metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="MetadataRetrieverUnix.h">
+      <Filter>Header Files\FileSystem\File\Metadata</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="test.txt">
+      <Filter>Resource Files</Filter>
+    </Text>
   </ItemGroup>
 </Project>

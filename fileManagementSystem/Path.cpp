@@ -21,6 +21,15 @@ void Path::setPathParts()
 	}	
 }
 
+void Path::pathPartsToPath()
+{
+	std::string path = ""; //will contain the path
+	for (const auto& part: pathParts)
+		path += part + "/";
+
+	this->path = path;
+}
+
 //constructors
 Path::Path(const std::string& path): path(path) 
 {
@@ -34,15 +43,31 @@ std::string Path::getPath() const
 	return path;
 }
 
-std::vector<std::string> Path::getPathParts() const
+std::string Path::getPart(size_t index) const
 {
-	return pathParts;
+	return pathParts[index];
+}
+
+size_t Path::getPartsCount() const
+{
+	return pathParts.size(); 
 }
 
 //setters
 void Path::setPath(const std::string& path) 
 {
 	this->path = path;
+	setPathParts();
+}
+
+bool Path::setPart(size_t index, const std::string& part)
+{
+	if (index >= pathParts.size())
+		return false;
+
+	pathParts[index] = part; 
+	pathPartsToPath();
+	return true;
 }
 
 bool Path::operator==(const Path& other) const

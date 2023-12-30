@@ -1,16 +1,16 @@
 #include "Metadata.h"
 
 //parameterized constructor
-Metadata::Metadata(const std::string& name, const std::string& creationDateTime, const Path& path, const int& fileSize)
+Metadata::Metadata(const Path& path, std::shared_ptr<MetadataRetriever> retriever) 
 {
-	this->path = path;  
-	this->name = name; 
-	this->creationDateTime = creationDateTime;
-	this->fileSize = fileSize;
+	this->name = path.getPart(path.getPartsCount() - 1); //get the last part of the path (the name of the file)
+	this->path = path; 
+	this->creationDateTime = retriever->getCreationDateTime(path); 
+	this->fileSize = retriever->getFileSize(path); 
 }
 
 //default constructor
-Metadata::Metadata(): name(""), creationDateTime(""), path(""), fileSize(0) {} 
+Metadata::Metadata(): creationDateTime(), path(""), name(""), fileSize(0) {}
 
 Path Metadata::getPath() const  
 {
@@ -22,14 +22,9 @@ std::string Metadata::getCreationDate() const
 	return creationDateTime; 
 }
 
-int Metadata::getFileSize() const
+size_t Metadata::getFileSize() const
 {
 	return fileSize;
-}
-
-std::string Metadata::getName() const
-{
-	return name;
 }
 
 void Metadata::setPath(const Path& path)   
@@ -37,13 +32,24 @@ void Metadata::setPath(const Path& path)
 	this->path = path;  
 }
 
-void Metadata::setFileSize(const int& fileSize)
+std::string Metadata::getName() const
 {
-	this->fileSize = fileSize;
+	return name;
 }
 
 void Metadata::setName(const std::string& name)
 {
 	this->name = name;
+	path.setPart(path.getPartsCount() - 1, name); //set the last part of the path to the new name of the file
+}
+
+void Metadata::setCreationDate(const std::string& creationDateTime)
+{
+	this->creationDateTime = creationDateTime;
+}
+
+void Metadata::setFileSize(const size_t& fileSize) 
+{
+	this->fileSize = fileSize;
 }
 

@@ -4,45 +4,37 @@
 #include "Metadata.h"
 class File { 
 private:
-	//data stored in file
+	//data members
 	std::string contents;
-
-	//metadata about file
 	Metadata metadata;
 
-	//returns size of the file 
-	int getSize();
-
-	//create a file
+	//private methods
+	int getSize() const;
 	void createFile();
-
-	//file location descriptor
-	std::string fileDescriptor();
+	std::string fileDescriptor() const;//path + filename
 
 public:
 	//could not retrieve file size
 	static const int FILE_SIZE_ERROR = -1;
 
-	//construct a new file
-	File(const std::string, const std::string, const std::string, const Path);  
-
-	//construct a file from an existing file
+	//constructors
+	File(const std::string&, const Metadata&);  
 	File(const File&); 
-
-	//default constructor
 	File();
 
 	//getters
 	std::string getContents() const;
-	Metadata getMetadata() const;
+	Path getPath() const; 
+	std::string getCreationDate() const; 
+	std::string getName() const; 
+	int getFileSize() const;
 
 	//setters
 	void setContents(const std::string);
-	void setMetadata(const Metadata);
-
-	//print to console
-	friend std::ostream& operator<<(std::ostream& os, const File& file);
+	void setPath(const Path&);
+	void setName(const std::string&);
 
 	//overloads
-	bool operator==(const File& other) const;
+	friend std::ostream& operator<<(std::ostream& os, const File& file);//print file object to console
+	bool operator==(const File& other) const;//compare two files for equality (by path)
 };

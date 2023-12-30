@@ -1,29 +1,34 @@
 #pragma once
 #include <string>
+#include <memory>
+#include "MetadataRetriever.h"
+#include "MetadataRetrieverUnix.h"
+#include "MetadataRetrieverWindows.h"
 #include "Path.h"
 class Metadata
 {
 private:
-	std::string name;
 	Path path; 
-	std::string creationDateTime; //YYYY-MM-DD HH:MM:SS TODO: import time library
-	int fileSize;
+	std::string name; 
+	std::string creationDateTime; 
+	size_t fileSize;
 
 public:
 	//constructors
-	Metadata(const std::string&, const std::string&, const Path& path, const int&);
+	Metadata(const Path& path, std::shared_ptr<MetadataRetriever> retriever);   
 	Metadata();
 
 	//getters
 	Path getPath() const;   
-	std::string getCreationDate() const;
+	std::string getCreationDate() const;  
 	std::string getName() const; 
-	int getFileSize() const;
+	size_t getFileSize() const;
 
 	//setters
 	void setPath(const Path&);   
 	void setName(const std::string&);
-	void setFileSize(const int&);
+	void setCreationDate(const std::string&); 
+	void setFileSize(const size_t& fileSize); 
 
 };
 

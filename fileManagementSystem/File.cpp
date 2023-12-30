@@ -5,8 +5,9 @@
 #include <string>
 
 //construct a new file
-File::File(const std::string fileName, const std::string creationDateTime, const std::string contents, const Path path) :  metadata(fileName, creationDateTime, path, getSize()) 
+File::File(const std::string& contents, const Metadata& metadata)
 {
+	this->metadata = metadata; 
 	this->contents = contents;
 	createFile(); 
 }
@@ -15,7 +16,7 @@ File::File(const std::string fileName, const std::string creationDateTime, const
 File::File(const File& file)
 {
 	this->contents = file.contents;
-	this->metadata = file.getMetadata(); 
+	this->metadata = file.metadata; 
 }
 
 //default constructor
@@ -27,9 +28,24 @@ std::string File::getContents() const
 	return contents;
 }
 
-Metadata File::getMetadata() const
+Path File::getPath() const 
 {
-	return metadata;
+	return metadata.getPath(); 
+}
+
+std::string File::getCreationDate() const
+{
+	return metadata.getCreationDate();
+}
+
+std::string File::getName() const
+{
+	return metadata.getName();
+}
+
+int File::getFileSize() const
+{
+	return getSize();
 }
 
 //setters
@@ -38,9 +54,14 @@ void File::setContents(const std::string contents)
 	this->contents = contents;
 }
 
-void File::setMetadata(const Metadata metadata)
+void File::setPath(const Path& path)
 {
-	this->metadata = metadata;
+	metadata.setPath(path);
+}
+
+void File::setName(const std::string& name)
+{
+	metadata.setName(name);
 }
 
 //create a file
@@ -55,7 +76,7 @@ void File::createFile()
 }
 
 //returns size of the file
-int File::getSize()
+int File::getSize() const
 {
 	//open file
 	std::ifstream file;
@@ -73,7 +94,7 @@ int File::getSize()
 }
 
 //file location descriptor
-std::string File::fileDescriptor()
+std::string File::fileDescriptor() const
 {
 	return (metadata.getPath().getPath() + metadata.getName());
 }
