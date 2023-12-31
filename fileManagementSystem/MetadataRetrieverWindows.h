@@ -1,4 +1,5 @@
 #pragma once
+#ifdef _WIN32
 #include "MetadataRetriever.h"
 #include "Windows.h"
 #include "Path.h"
@@ -11,8 +12,10 @@ public:
 	MetadataRetrieverWindows(const Path&);
 	
 	//overrides
-	std::string getCreationDateTime(const Path& path); 
-	size_t getFileSize(const Path& path);
+	std::string getCreationDateTime(); 
+	size_t getFileSize();
 };
+
+#endif // _WIN32 
 
 

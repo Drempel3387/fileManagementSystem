@@ -125,6 +125,7 @@ std::shared_ptr<Directory> Directory::searchDirectory(const std::string& name)
 	return nullptr; //directory not found
 }
 
+
 //print all files in the directory
 void Directory::printFiles() const
 {

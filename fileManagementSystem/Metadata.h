@@ -2,8 +2,6 @@
 #include <string>
 #include <memory>
 #include "MetadataRetriever.h"
-#include "MetadataRetrieverUnix.h"
-#include "MetadataRetrieverWindows.h"
 #include "Path.h"
 class Metadata
 {

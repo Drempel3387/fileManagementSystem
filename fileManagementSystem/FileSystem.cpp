@@ -84,17 +84,17 @@ std::vector<std::shared_ptr<File>> FileSystem::searchFile(const std::string name
 	return fileMap.getFiles(name); 
 }
 
-//returns the file at the given path
-std::shared_ptr<File> FileSystem::searchFile(Path& path)   
-{
-	std::shared_ptr<Directory> directory = findDirectory(path, root, START);     
-	if (directory != nullptr)
-	{
-		std::string fileName = path.getPart(path.getPartsCount() - 1); 
-		return directory->searchFile(fileName);  
-	}
-	return nullptr; 
-}
+////returns the file at the given path
+//std::shared_ptr<File> FileSystem::searchFile(Path& path)   
+//{
+//	std::shared_ptr<Directory> directory = findDirectory(path, root, START);     
+//	if (directory != nullptr)
+//	{
+//		std::string fileName = path.getPart(path.getPartsCount() - 1); 
+//		return directory->searchFile(fileName);  
+//	}
+//	return nullptr; 
+//}
 
 ////creates a file with the given name and content
 //bool FileSystem::createFile(const std::string& name, const std::string& content)

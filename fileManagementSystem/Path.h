@@ -7,7 +7,8 @@ class Path
 private:
 	//data members
 	std::string path;
-	std::vector <std::string> pathParts; //will contain the parts of the path
+	std::vector <std::string> pathParts; //will contain the parts of the path 
+	std::string delimiter;
 
 	//private methods
 	void setPathParts();

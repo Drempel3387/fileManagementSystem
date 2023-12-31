@@ -2,35 +2,27 @@
 #include <string>
 #include <ostream>
 #include "Metadata.h"
+#include "Path.h"
 class File { 
 private:
 	//data members
-	std::string contents;
+	std::shared_ptr<std::string> contents; 
 	Metadata metadata;
 
-	//private methods
-	int getSize() const;
-	void createFile();
-	std::string fileDescriptor() const;//path + filename
-
 public:
-	//could not retrieve file size
-	static const int FILE_SIZE_ERROR = -1;
 
 	//constructors
-	File(const std::string&, const Metadata&);  
+	File(const Path& path);   
 	File(const File&); 
 	File();
 
 	//getters
-	std::string getContents() const;
 	Path getPath() const; 
 	std::string getCreationDate() const; 
 	std::string getName() const; 
-	int getFileSize() const;
+	size_t getFileSize() const; 
 
 	//setters
-	void setContents(const std::string);
 	void setPath(const Path&);
 	void setName(const std::string&);
 

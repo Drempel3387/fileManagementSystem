@@ -31,6 +31,12 @@
     <Filter Include="Source Files\FileSystem\File\Metadata">
       <UniqueIdentifier>{231a8545-c54a-4883-bca0-d78dc30762da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\FileSystem\Path">
+      <UniqueIdentifier>{d8afcd16-99f9-40a3-a30b-54eccb29a758}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\FileSystem\Path">
+      <UniqueIdentifier>{827b71f4-5b52-495a-9744-74be8e234eda}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -43,9 +49,6 @@
       <Filter>Source Files\FileSystem</Filter>
     </ClCompile>
     <ClCompile Include="FileSystem.cpp">
-      <Filter>Source Files\FileSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="Path.cpp">
       <Filter>Source Files\FileSystem</Filter>
     </ClCompile>
     <ClCompile Include="FileMap.cpp">
@@ -63,6 +66,12 @@
     <ClCompile Include="MetadataRetrieverUnix.cpp">
       <Filter>Source Files\FileSystem\File\Metadata</Filter>
     </ClCompile>
+    <ClCompile Include="Path.cpp">
+      <Filter>Source Files\FileSystem\Path</Filter>
+    </ClCompile>
+    <ClCompile Include="DelimeterRetriever.cpp">
+      <Filter>Source Files\FileSystem\Path</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="File.h">
@@ -72,9 +81,6 @@
       <Filter>Header Files\FileSystem</Filter>
     </ClInclude>
     <ClInclude Include="FileSystem.h">
-      <Filter>Header Files\FileSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="Path.h">
       <Filter>Header Files\FileSystem</Filter>
     </ClInclude>
     <ClInclude Include="FileMap.h">
@@ -91,6 +97,12 @@
     </ClInclude>
     <ClInclude Include="MetadataRetrieverUnix.h">
       <Filter>Header Files\FileSystem\File\Metadata</Filter>
+    </ClInclude>
+    <ClInclude Include="Path.h">
+      <Filter>Header Files\FileSystem\Path</Filter>
+    </ClInclude>
+    <ClInclude Include="DelimeterRetriever.h">
+      <Filter>Header Files\FileSystem\Path</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

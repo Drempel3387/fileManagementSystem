@@ -1,7 +1,12 @@
-#include "MetadataRetrieverUnix.h"
+#ifdef _WIN32
+#else
 
+#include "MetadataRetrieverUnix.h"
 //constructor
-MetadataRetrieverUnix::MetadataRetrieverUnix(const Path& path): MetadataRetriever(path) { }
+MetadataRetrieverUnix::MetadataRetrieverUnix(const Path& path)
+{
+	this->path = path;
+}
 
 //get the metadata of the file
 struct stat MetadataRetrieverUnix::getFileStat(const Path& path)
@@ -14,10 +19,10 @@ struct stat MetadataRetrieverUnix::getFileStat(const Path& path)
 	return fileStat;
 }
 
-//convert the time_t object to a string
+convert the time_t object to a string
 std::string MetadataRetrieverUnix::convertTimeToString(const time_t& time)
 {
-	std::string timeString = std::to_string(time);
+	std::string timeString = ctime(&time); //convert the time_t object to a string  
 	timeString.erase(timeString.length() - 1); //remove the newline character from the end of the string
 	return timeString;
 }
@@ -35,3 +40,5 @@ size_t MetadataRetrieverUnix::getFileSize(const Path& path)
 	struct stat fileStat = getFileStat(path);
 	return fileStat.st_size;
 }
+
+#endif

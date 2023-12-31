@@ -5,8 +5,8 @@ Metadata::Metadata(const Path& path, std::shared_ptr<MetadataRetriever> retrieve
 {
 	this->name = path.getPart(path.getPartsCount() - 1); //get the last part of the path (the name of the file)
 	this->path = path; 
-	this->creationDateTime = retriever->getCreationDateTime(path); 
-	this->fileSize = retriever->getFileSize(path); 
+	this->creationDateTime = retriever->getCreationDateTime(); 
+	this->fileSize = retriever->getFileSize(); 
 }
 
 //default constructor

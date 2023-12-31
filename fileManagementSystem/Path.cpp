@@ -1,4 +1,5 @@
 #include "Path.h"
+#include "DelimeterRetriever.h"
 
 void Path::setPathParts()
 {
@@ -11,7 +12,7 @@ void Path::setPathParts()
 
 	while (currentPart != std::string::npos) //while we have not reached the end of the path
 	{
-		currentPart = path.find('/', lastPart); //find the next part of the path
+		currentPart = path.find(delimiter, lastPart); //find the next part of the path 
 		part = path.substr(lastPart, currentPart - lastPart); //get the part of the path
 
 		if (part != "")
@@ -25,7 +26,7 @@ void Path::pathPartsToPath()
 {
 	std::string path = ""; //will contain the path
 	for (const auto& part: pathParts)
-		path += part + "/";
+		path += part + delimiter; //add the part and the delimiter to the path
 
 	this->path = path;
 }
@@ -33,6 +34,7 @@ void Path::pathPartsToPath()
 //constructors
 Path::Path(const std::string& path): path(path) 
 {
+	delimiter = DelimeterRetriever::getDelimeter(); 
 	setPathParts(); 
 }
 Path::Path() : path("") {}

@@ -19,8 +19,10 @@
 class Directory
 {
 	private:
+		//data members
 		std::string name;//name of the directory
 		Path path;//path of the directory
+
 		std::vector<std::shared_ptr<File>> files;//vector of all files in the directory 
 		std::vector<std::shared_ptr<Directory>> directories;//vector of all directories in the directory
 		std::shared_ptr<Directory> parent;//pointer to the parent directory of the directory 

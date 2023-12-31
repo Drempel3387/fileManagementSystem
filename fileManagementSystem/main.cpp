@@ -1,19 +1,13 @@
 #include <iostream>
 #include <fstream>
 #include <string>
-#include "MetadataRetrieverUnix.h"
-#include "MetadataRetrieverWindows.h"
 #include "Directory.h"
 #include "Path.h"
-#include "FileSystem.h"
-#include "FileMap.h"
 
 int main(void)
 {
-	Path path("C:\\Users\\Devon\\source\\repos\\fileManagementSystem\\fileManagementSystem\\test.txt");
-	std::shared_ptr<MetadataRetrieverWindows> retriever = std::make_shared<MetadataRetrieverWindows>(path); 
-	Metadata metadata(path, std::move(retriever));   
+	Directory root = Directory("Root", Path("Root"), nullptr);
+	File file = File(Path("C:\\Users\\Devon\\source\\repos\\fileManagementSystem\\fileManagementSystem\\test.txt"));
 
-	std::cout << metadata.getCreationDate() << std::endl; 
 	return 0;
 }

@@ -1,18 +1,21 @@
 #pragma once
 #include "Path.h"
+#include <string>
+#include <memory>
 class MetadataRetriever
 {
 private:
-	Path path; //path to the file 
+protected:
+	Path path; //the path to the file
 public:
-	MetadataRetriever(const Path& path); //constructor 
-
 	//getters and setters
 	Path getPath() const; //get the path to the file
 	void setPath(const Path& path); //set the path to the file
 
+	static std::shared_ptr<MetadataRetriever> create(const Path& path); //create a metadata retriever based on the OS
+
 	//overrides
-	virtual std::string getCreationDateTime(const Path& path) = 0; 
-	virtual size_t getFileSize(const Path& path) = 0;
+	virtual std::string getCreationDateTime() = 0; 
+	virtual size_t getFileSize() = 0;
 };
 

@@ -5,11 +5,10 @@
 #include <string>
 
 //construct a new file
-File::File(const std::string& contents, const Metadata& metadata)
+File::File(const Path& path)
 {
-	this->metadata = metadata; 
-	this->contents = contents;
-	createFile(); 
+	this->contents = nullptr;
+	this->metadata = Metadata(path, MetadataRetriever::create(path)); 
 }
 
 //construct from an existing file
@@ -20,14 +19,9 @@ File::File(const File& file)
 }
 
 //default constructor
-File::File(): contents(""), metadata() {}
+File::File(): contents(nullptr), metadata() {}
 
 //getters
-std::string File::getContents() const
-{
-	return contents;
-}
-
 Path File::getPath() const 
 {
 	return metadata.getPath(); 
@@ -43,17 +37,12 @@ std::string File::getName() const
 	return metadata.getName();
 }
 
-int File::getFileSize() const
+size_t File::getFileSize() const
 {
-	return getSize();
+	return metadata.getFileSize(); 
 }
 
 //setters
-void File::setContents(const std::string contents)
-{
-	this->contents = contents;
-}
-
 void File::setPath(const Path& path)
 {
 	metadata.setPath(path);
@@ -62,41 +51,6 @@ void File::setPath(const Path& path)
 void File::setName(const std::string& name)
 {
 	metadata.setName(name);
-}
-
-//create a file
-void File::createFile()
-{
-	//create file
-	std::ofstream file;
-	file.open(fileDescriptor());  
-	file << contents; 
-
-	file.close();
-}
-
-//returns size of the file
-int File::getSize() const
-{
-	//open file
-	std::ifstream file;
-	file.open(fileDescriptor());  
-	
-	if (!file.is_open())
-		return FILE_SIZE_ERROR;
-	
-	//get size	
-	file.seekg(0, std::ios::end);
-	int size = file.tellg();
-	file.close();	
-
-	return size;
-}
-
-//file location descriptor
-std::string File::fileDescriptor() const
-{
-	return (metadata.getPath().getPath() + metadata.getName());
 }
 
 //print to console
